@@ -1,37 +1,51 @@
-# 00 — Recon UI/UX
+# 00 — Reconnaissance produit UI/UX
 
 ## Mission
-Auditer l'interface actuelle d'OpenCode utilisée comme base d'EurinHash avant toute modification.
+Comprendre l'expérience terminal actuelle avant toute modification et établir la baseline EurinHash.
 
 ## Prompt
-Tu es **Lead UI/UX Engineer + Terminal UX Architect**. Analyse `digitaleflex/eurinhash-opencode` et, si nécessaire, `digitaleflex/opencode-config`.
+Tu es **Principal UI/UX Engineer, Terminal UX Architect et Product Investigator**. Audite le TUI réel de `digitaleflex/eurinhash-opencode` et la couche `digitaleflex/opencode-config`.
 
-Ne code rien. Cartographie l'expérience réelle : écrans, routes TUI, composants, layouts, sidebar, prompt, dialogs, status, thèmes, keybindings, plugins/slots, états, événements, données consommées, persistance et contraintes terminal.
+Travaille comme un enquêteur produit : inspecte le code réel, exécute l'application si possible, observe les écrans et parcours, puis confronte tes observations aux documents d'ingénierie existants.
 
-Pour chaque zone, identifie :
-1. ce qui existe réellement ;
-2. la source de vérité runtime ;
-3. ce qui est configurable dans `opencode-config` ;
-4. ce qui nécessite une modification de `eurinhash-opencode` ;
-5. les frictions UX ;
-6. les dépendances et risques.
+Cartographie au minimum : shell, home, session, chat, message list, prompt, sidebar, workspace, agent/status, activity, tools, MCP, LSP, Git, model/provider, dialogs, command palette, notifications, overlays, thèmes, keybindings, scrolling, focus et responsive terminal.
 
-Compare les observations avec les documents existants dans `docs/recon/`, `docs/ux/`, `docs/design/`, `docs/ui/`, `docs/state/` et `docs/observability/`. Signale toute divergence au lieu de la corriger silencieusement.
+Pour chaque zone, établis :
+1. comportement actuel ;
+2. source de vérité runtime ;
+3. événements qui l'alimentent ;
+4. données réellement disponibles ;
+5. configuration possible via `opencode-config` ;
+6. modification nécessaire dans `eurinhash-opencode` ;
+7. friction utilisateur ;
+8. opportunité EurinHash ;
+9. risque technique ;
+10. test permettant de prouver le comportement.
 
-### Contraintes
-- Aucun code.
+Compare avec `docs/recon/`, `docs/ux/`, `docs/design/`, `docs/ui/`, `docs/state/` et `docs/observability/`. Toute divergence doit être signalée.
+
+## Vision EurinHash
+L'objectif est de construire un **terminal de commande et de contrôle pour agents de développement** : puissant, lisible, rapide, terminal-native et centré sur le travail.
+
+Le chat reste le centre de gravité. Workspace, Agent, Activity, Context, Tools et Observability doivent augmenter la compréhension sans transformer le terminal en dashboard surchargé.
+
+## Contraintes
+- Aucun code dans ce module.
 - Aucun comportement inventé.
-- Ne pas confondre état UI et état backend.
 - `UNKNOWN != ZERO`.
-- Ne pas proposer d'upstream PR.
+- Ne jamais exposer de secrets, prompts privés, sorties sensibles ou credentials dans les artefacts.
+- Ne pas chercher à préparer une contribution upstream.
 
-### Livrables
+## Livrables
 - `docs/course/00-ui-ux-recon.md`
-- inventaire des écrans et composants ;
-- matrice config vs custom code ;
-- liste des frictions UX ;
+- baseline UX actuelle ;
+- inventaire écrans/composants ;
+- matrice configuration vs custom UI ;
+- matrice données/runtime ;
+- frictions UX ;
+- opportunités classées par impact et risque ;
 - questions ouvertes ;
-- `RECON UI/UX STATUS` avec faits, hypothèses et inconnues.
+- `RECON UI/UX STATUS`.
 
 ## Gate
-Impossible de passer au prompt 01 tant que l'interface actuelle n'est pas suffisamment cartographiée.
+Aucune conception ne démarre tant que nous ne savons pas précisément ce que l'utilisateur voit aujourd'hui, ce qui l'alimente et où se situe chaque possibilité d'amélioration.
